@@ -1,0 +1,32 @@
+{%  extends "local/base.html"%}
+
+{% block header%}
+    <div class="jumbotron">
+        <h1> Administre suas ocorrências Fiscais</h1>
+    </div>
+
+{%endblock header%}
+
+
+{% block content %} 
+
+{% if user.is_authenticated %}
+    <h3>
+        Sempre que você atender a uma ocorrência em um local,
+        faça uma entrada relatando as informações da ocorrência.
+    </h3> 
+
+{% else%}
+    <h3>
+    <a href="{% url 'register'%}">Crie uma conta</a> para utilizar o sistema e administrar suas ocorrências.
+    que você está aprendendo.
+    </h3>
+
+    <h3>
+        Sempre que você atender a uma ocorrência em um local,
+        faça uma entrada relatando as informações da ocorrência.
+    </h3> 
+{%endif%}
+
+
+{% endblock content%}

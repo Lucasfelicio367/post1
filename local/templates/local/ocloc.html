@@ -1,0 +1,64 @@
+{%  extends "local/base.html"%}
+{% load bootstrap3%}
+
+{% block header%}
+    <div class="container">
+        <h2>Local: {{loc}}  </h2>
+        <p>
+            <span style="float: left;">Setor: {{ loc|stringformat:"s"|slice:":2" }} - Quadra: {{ loc|stringformat:"s"|slice:"2:4" }}
+            - Lote: {{ loc|stringformat:"s"|slice:"4:6" }}</span>
+        
+            <span style="float: right;"><a href="{% url 'gerar_relatorio_local_pdf' insc_id=loc.id %}">Gerar Relatório do Local</a></span>
+        </p>
+    </div>
+        
+
+
+
+{% endblock header%}
+
+{% block content %} 
+    <div class="container" >
+        <br>
+        <p style="margin-left: 0;"><a href="{% url 'new_ocorrencia' insc_id=loc.id %}">Adicione uma nova ocorrencia</a></p>
+   
+
+    {% for o in ocorr%}
+        <div class="panel panel-default">          
+
+            <div class="panel panel-heading">
+                <h3>
+                {{ o.date_added | date:'d/m/Y H:i'}}
+                <small>
+                    
+                    <a href="{% url 'edit_ocorrencia' o.id%}">Editar ocorrencia</a>
+                
+                    <p style="margin-left: 1000px;">Por: {{ o.owner.username }}</p>
+                    
+                    
+                </small>
+                    
+                </h3>
+
+            </div>
+
+            <div class="panel-body">
+            {{o.desc | linebreaks }}
+
+                {% if o.noti %}
+                    Status: Foi Notificado.
+                {% else %}
+                    Status: Não Notificado.
+                {% endif %}
+            </div>
+      
+        </div>
+    {% empty%}
+    
+        Não há registro.
+    
+    {% endfor%}
+ </div>
+
+{% endblock content%}
+

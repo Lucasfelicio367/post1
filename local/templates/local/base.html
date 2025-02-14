@@ -1,0 +1,104 @@
+{% load bootstrap3%}
+
+<!DOCTYPE html>
+<html lang="pt-br"
+
+    <head>
+
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatiible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="Aplicação para controlar ocorrencias">
+        <meta name="keywords" content="posturas municipais, posturas, sistema de postura">
+        <meta name="author" content=" Lucas Felicio">
+
+        <title> POSTURAS</title>
+
+        {% bootstrap_css %}
+        {% bootstrap_javascript %}
+
+        <style>
+            .ul-none ul{
+                display: none;
+            }
+            .help-block{
+                display: none;
+            }
+
+            .centered-header {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 15vh; /* Ocupa toda a altura da janela */
+                text-align: center;
+            }
+            .bold-text {
+                color: blue;
+                font-weight: bold;
+            }
+
+            .bold-italic-text {
+                color: blue;
+                font-weight: bold;
+                font-style: italic;
+            }
+    
+
+
+
+        </style>
+
+
+    </head>
+    
+    <body>
+        <nav class="navbar navbar-default navbar-static-top">
+
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" 
+                            data-toggle="collapse" 
+                            data-target="#navbar" 
+                            aria-expanded="false"
+                    >
+                    </button>
+                    <a class="navbar-brand" href="{% url 'index' %}" style="color: blue; font-weight: bold; font-style: italic;">POSTURE</a>
+                </div>
+                
+                <div id="navbar" class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav">
+                    <li><a href = "{% url 'vloc' %}"> Locais</a></li>
+
+                    {% if user.is_authenticated%}            
+                    <li><a href="{% url 'gerar_relatorio_pdf' %}">Emitir Relatório</a></li>                   
+                    {%endif%}
+
+                    </ul>
+                
+                    <ul class="nav navbar-nav navbar-right">
+                        {% if user.is_authenticated%}
+                            <li><a>Olá, {{user.username}}</a></li>
+                          
+                            <li><a href="{% url 'logout'%}">Sair</a></li>
+                              
+                        {%else%}
+                            <li><a href="{% url 'register'%}">Registrar</a></li>
+                            <li><a href="{% url 'login'%}">Entrar</a></li>
+
+                        {%endif%}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="container">
+            <div class="block header">
+                {% block header %} {% endblock header%}
+            </div>
+            <div>
+                {% block content %} {% endblock content%}
+            </div>      
+        </div> 
+    </body>
+
+<html>
+    

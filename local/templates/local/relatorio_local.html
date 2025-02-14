@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        footer {
+            background-color: #ffffff;
+            text-align: justify;
+            padding: 1rem;
+            border-top: 1px solid #ffffff;
+        }
+        hr {
+            border: none;
+            height: 0.4px;
+            background-color: #000;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    <h1>Relatório - Local: {{loc.insc}}</h1>
+    <br>
+
+    <div>
+        
+        <p><strong>Inscrição Imobiliária:</strong> Setor: {{ loc|stringformat:"s"|slice:":2" }} - Quadra: {{ loc|stringformat:"s"|slice:"2:4" }}
+            - Lote: {{ loc|stringformat:"s"|slice:"4:6" }}</p>
+        <p><strong>Total de Ocorrências:</strong> {{ total_ocorrencias }}</p>
+        <p><strong>Principal Motivo de Ocorrências:</strong> {{ motivo_principal }}</p>
+        <p><strong>Mês com Mais Ocorrências:</strong> {{ mes_mais_ocorrencias }}</p>
+        <p><strong>Total de Notificações:</strong> {{ total_notificacoes }}</p>
+    </div>
+
+    <footer>
+        <br>
+        <br>
+        <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+        <br><br><br><br><br><br><br><br><br>
+        <hr>
+        <p>
+            <span style="float: left;"><strong>Emitido por:</strong> {{ nome_usuario }}</span>
+            <span style="float: right;"><strong>Data de emissão:</strong> {{ data_relatorio }}</span>
+        </p>
+    </footer>
+</body>
+</html>

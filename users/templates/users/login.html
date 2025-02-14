@@ -1,0 +1,43 @@
+{%  extends "local/base.html"%}
+{% load bootstrap3%}
+
+{% block header %}
+    <div class="centered-header">
+        <h2>Entre com sua conta de login</h2>
+    </div>
+{% endblock header %}
+
+
+{% block content %} 
+
+
+<form action="{% url 'login' %}" method="post" class="form-horizontal">
+    {% csrf_token %}
+    
+    <!-- Campo de Usuário -->
+    <div class="form-group">
+        <label for="id_username" class="col-sm-2 control-label">Usuário</label>
+        <div class="col-sm-4">
+            <input type="text" name="username" id="id_username" class="form-control" placeholder="Digite seu usuário">
+        </div>
+    </div>
+    
+    <!-- Campo de Senha -->
+    <div class="form-group">
+        <label for="id_password" class="col-sm-2 control-label">Senha</label>
+        <div class="col-sm-4">
+            <input type="password" name="password" id="id_password" class="form-control" placeholder="Digite sua senha">
+        </div>
+    </div>
+    
+    <!-- Botão -->
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-4">
+            <button name="submit" class="btn btn-primary">Entrar</button>
+        </div>
+    </div>
+    
+    <input type="hidden" name="next" value="{% url 'index' %}">
+</form>
+
+{% endblock content%}

@@ -1,0 +1,99 @@
+{% load bootstrap3%}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    
+    
+<style>
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+
+
+        footer {         
+            background-color: #ffffff;
+            text-align: justify;
+            padding: 1rem;
+            border-top: 1px solid #ffffff;
+;
+        }
+
+        hr {
+            
+            border: none; /* Remove a borda padrão */
+            height: 0.4px; /* Define a espessura da linha */
+            background-color: #000; /* Define a cor da linha */
+            width: 100%; /* Garante que a linha ocupe toda a largura disponível */
+            margin: 0; /* Remove margens */
+            padding: 0; /* Remove qualquer preenchimento */
+            box-sizing: border-box; /* Garantir que a largura seja 100% do contêiner sem somar bordas */
+        
+        }
+        @page {
+    
+ 
+        margin: 0; /* Remove margens padrão da página */
+    }
+
+
+
+    
+    </style>
+
+
+</head>
+<body>
+
+    <h1>Relatório de Posturas</h1>
+    
+<div class=" container" style="margin: 100px;">
+    <p><strong>Total de Locais:</strong> {{ total_locais }}</p> 
+    <p ><strong>Total de Ocorrências:</strong> {{ total_ocorrencias }}</p>   
+    <p><strong>Local com mais ocorrências:</strong> {{ local_mais_ocorrencias }}</p>    
+    <p><strong>Mês com mais ocorrências de fogo:</strong> {{ mes_mais_fogo }}</p> 
+    <p><strong>Motivo principal das ocorrências:</strong> {{ motivo_principal }}</p>
+</div>
+
+<footer>
+    <div class="container">
+        <br>
+        <br>
+        <br>
+        <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+        <br><br><br><br><br><br>
+        <hr>
+        <p>
+            <span style="float: left;"><strong>Emitido por:</strong> {{ nome_usuario }}</span>
+            <span style="float: right;"><strong>Data de emissão:</strong> {{ data_relatorio }}</span>
+        </p>
+         
+        
+    </div>
+    
+    </footer>
+</body>
+
+</htm
+</html>

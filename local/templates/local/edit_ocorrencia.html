@@ -1,0 +1,53 @@
+{%  extends "local/base.html"%}
+{% load bootstrap3%}
+
+{% block header%}
+<h1>
+    Local: 
+    <a href="{%url 'vlocs' loc.id%}">{{loc}}</a>
+</h1>
+{% endblock header%}
+
+
+{% block content %} 
+
+<div class="container mt-4">
+    <h3>Editar ocorrência</h3>
+
+    <form action="{% url 'edit_ocorrencia' ocorr.id  %}" method="POST" class="form">
+        {% csrf_token %}
+        
+        <!-- Campo Status -->
+        <div class="mb-3">
+            <label for="id_status" class="form-label">{{ form.status.label }}</label>
+            {{ form.status }}
+            {% if form.status.errors %}
+                <div class="invalid-feedback">
+                    {{ form.status.errors|join:" " }}
+                </div>
+            {% endif %}
+        </div>
+ 
+        <!-- Campo Descrição -->
+        <div class="mb-3">
+            <label for="id_desc" class="form-label">{{ form.desc.label }}</label>
+            {{ form.desc }}
+            {% if form.desc.errors %}
+                <div class="invalid-feedback">
+                    {{ form.desc.errors|join:" " }}
+                </div>
+            {% endif %}
+        </div>
+
+        <!-- Checkbox Notificado -->
+        <div class="mb-3 form-check">
+            {{ form.noti }}
+            <label for="id_noti" class="form-check-label">{{ form.noti.label }}</label>
+        </div>
+
+        <!-- Botão Submit -->
+        <button type="submit" class="btn btn-primary">Adicionar</button>
+    </form>
+</div>
+
+{% endblock content%}

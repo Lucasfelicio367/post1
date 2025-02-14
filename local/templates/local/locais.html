@@ -1,0 +1,78 @@
+{%  extends "local/base.html"%}
+
+{% block header %}
+<div class="container">
+    <!-- Usando Flexbox diretamente -->
+    <div class="d-flex justify-content-between align-items-center">
+        <!-- Título à esquerda -->
+        <h1 class="mb-0">Locais</h1>
+
+        <!-- Barra de pesquisa à direita -->
+         
+        <form method="GET" action="{% url 'vloc' %}" class="d-flex">
+            
+            <div class="input-group">
+                <!-- Campo de pesquisa -->
+                <input 
+                    type="text" 
+                    name="q" 
+                    class="form-control" 
+                    placeholder="Pesquisar locais..." 
+                    value="{{ query }}"
+                >
+            
+                
+                <!-- Botão de pesquisa -->
+                <button class="btn btn-primary" type="submit">Pesquisar</button>
+               
+            </div>
+        </form>
+        
+    </div>
+</div>
+
+{% endblock header %}
+
+
+{% block content %} 
+    <br>
+<div class="container">
+    <ul class="list-group mb-4">
+        {% for lo in loc %}
+            <li class="list-group-item">
+                <div class="d-flex align-items-center">
+                    <!-- Parte antes da divisória -->
+                    <div class="pe-3">
+                        <h3>
+                            <a href="{% url 'vlocs' lo.id %}" class="text-decoration-none text-primary">{{ lo }}</a>
+                        </h3>
+                    </div>
+
+                    <!-- Divisória vertical -->
+                    <div class="vr mx-3"></div>
+
+                    <!-- Parte após a divisória -->
+                    <div>
+                        <p>{{ lo.endereco }}</p>
+                        <p style="font-weight: bold">Setor: {{ lo|stringformat:"s"|slice:":2" }} - Quadra: {{ lo|stringformat:"s"|slice:"2:4" }}
+                            - Lote: {{ lo|stringformat:"s"|slice:"4:6" }}</p>
+
+
+                        
+                    </div>
+                </div>
+            </li>
+        {% empty %}
+            <li class="list-group-item text-center">
+                Não há locais adicionados
+            </li>
+        {% endfor %}
+    </ul>
+
+    <div class="text-center">
+        <a href="{% url 'new_local' %}" class="btn btn-primary">
+            Adicionar novos locais
+        </a>
+    </div>
+</div>
+{% endblock content%}
