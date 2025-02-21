@@ -16,6 +16,7 @@ class local(models.Model):
 class StatusOpcoes(models.TextChoices):
     FOGO = 'fogo', 'Fogo'
     LIXO = 'lixo', 'Lixo'
+    AMBULANTE = 'ambulante','Ambulante'
     NULL = 'null', 'Sem status'
 
 class Ocorrencia(models.Model):
@@ -24,7 +25,7 @@ class Ocorrencia(models.Model):
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     
     status = models.CharField(
-        max_length=4,  # Ajustado para acomodar o comprimento do maior valor ('null')
+        max_length=10,  # Ajustado para acomodar o comprimento do maior valor ('null')
         choices=StatusOpcoes.choices,  
         default=StatusOpcoes.NULL,  # Usando a enumeração corretamente
     )
