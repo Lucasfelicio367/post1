@@ -17,6 +17,9 @@ class StatusOpcoes(models.TextChoices):
     FOGO = 'fogo', 'Fogo'
     LIXO = 'lixo', 'Lixo'
     AMBULANTE = 'ambulante','Ambulante'
+    TERRENO_SUJO = 'terreno sujo', 'Terreno Sujo'
+    Estrutura_comprometida = 'construção comprometida', 'Construção Comprometida '
+    PLANTAS = 'invasão de plantas', 'Invasão de Plantas'
     NULL = 'null', 'Sem status'
 
 class Ocorrencia(models.Model):
@@ -25,7 +28,7 @@ class Ocorrencia(models.Model):
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     
     status = models.CharField(
-        max_length=10,  # Ajustado para acomodar o comprimento do maior valor ('null')
+        max_length= 28,  # Ajustado para acomodar o comprimento do maior valor ('null')
         choices=StatusOpcoes.choices,  
         default=StatusOpcoes.NULL,  # Usando a enumeração corretamente
     )
