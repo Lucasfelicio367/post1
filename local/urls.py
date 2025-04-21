@@ -1,13 +1,14 @@
-
-
 from django.urls import path
 from . import views
+
+app_name = 'local'
 
 urlpatterns = [
     path('', views.index, name='index'),
     path('vloc', views.vloc, name='vloc'),
     path('vlocs/<insc_id>', views.vlocs, name='vlocs'),
     path('new_local', views.new_local, name='new_local'),
+    path('edit_local/<int:local_id>/', views.edit_local, name='edit_local'),  # Nova rota para edição
     path('new_ocorrencia/<int:insc_id>/', views.new_ocorrencia, name='new_ocorrencia'),
     path('edit_ocorrencia/<ocorr_id>/', views.edit_ocorrencia, name='edit_ocorrencia'),
     path('relatorio/pdf/', views.gerar_relatorio_pdf, name='gerar_relatorio_pdf'),

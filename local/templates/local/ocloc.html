@@ -1,64 +1,81 @@
-{%  extends "local/base.html"%}
-{% load bootstrap3%}
+{% extends "local/base.html" %}
+{% load bootstrap3 %}
 
-{% block header%}
+{% block header %}
     <div class="container">
-        <h2>Local: {{loc}}  </h2>
+        <h2>Local: {{ loc }}</h2>
         <p>
-            <span style="float: left;">Setor: {{ loc|stringformat:"s"|slice:":2" }} - Quadra: {{ loc|stringformat:"s"|slice:"2:4" }}
-            - Lote: {{ loc|stringformat:"s"|slice:"4:6" }}</span>
-        
-            <span style="float: right;"><a href="{% url 'gerar_relatorio_local_pdf' insc_id=loc.id %}">Gerar Relatório do Local</a></span>
+            <span style="float: left;">
+                Setor: {{ loc|stringformat:"s"|slice:":2" }} -
+                Quadra: {{ loc|stringformat:"s"|slice:"2:4" }} -
+                Lote: {{ loc|stringformat:"s"|slice:"4:6" }}
+            </span>
+            <span style="float: right;">
+                <a href="{% url 'local:gerar_relatorio_local_pdf' insc_id=loc.id %}">Gerar Relatório do Local</a>
+            </span>
         </p>
     </div>
-        
+{% endblock header %}
 
+{% block content %}
+<div class="container">
+    <br>
 
+    <!-- Formulário de filtro por andamento (acima do link) -->
+    <form method="get" class="form-inline mb-3">
+        <label for="andamento">Filtrar por andamento:</label>
+        <select name="andamento" id="andamento" class="form-control" style="width: auto; display: inline-block; margin: 0 10px;">
+            <option value="">Todos</option>
+            <option value="em_andamento" {% if filtro_andamento == 'em_andamento' %}selected{% endif %}>Em andamento</option>
+            <option value="resolvido" {% if filtro_andamento == 'resolvido' %}selected{% endif %}>Resolvido</option>
+            <option value="vencido" {% if filtro_andamento == 'vencido' %}selected{% endif %}>Prazo vencido</option>
+        </select>
+        <button type="submit" class="btn btn-primary">Filtrar</button>
+    </form>
 
-{% endblock header%}
+    <!-- Link para adicionar nova ocorrência com margem superior -->
+    <p><a href="{% url 'local:new_ocorrencia' insc_id=loc.id %}" style="margin-top: 20px; display: inline-block;">Adicione uma nova ocorrência</a></p>
 
-{% block content %} 
-    <div class="container" >
-        <br>
-        <p style="margin-left: 0;"><a href="{% url 'new_ocorrencia' insc_id=loc.id %}">Adicione uma nova ocorrencia</a></p>
-   
-
-    {% for o in ocorr%}
-        <div class="panel panel-default">          
-
-            <div class="panel panel-heading">
+    {% for o in ocorr %}
+        <div class="panel panel-default">
+            <div class="panel-heading">
                 <h3>
-                {{ o.date_added | date:'d/m/Y H:i'}}
-                <small>
-                    
-                    <a href="{% url 'edit_ocorrencia' o.id%}">Editar ocorrencia</a>
-                
-                    <p style="margin-left: 1000px;">Por: {{ o.owner.username }}</p>
-                    
-                    
-                </small>
-                    
+                    {{ o.date_added|date:'d/m/Y H:i' }}
+                    <small>
+                        <a href="{% url 'local:edit_ocorrencia' o.id %}">Editar ocorrência</a>
+                        <span style="float: right;">Por: {{ o.owner.username }}</span>
+                    </small>
                 </h3>
-
             </div>
 
             <div class="panel-body">
-            {{o.desc | linebreaks }}
+                {{ o.desc|linebreaks }}
 
-                {% if o.noti %}
-                    Status: Foi Notificado.
-                {% else %}
-                    Status: Não Notificado.
-                {% endif %}
+                <p>
+                    {% if o.noti %}
+                        Status: Foi Notificado.
+                    {% else %}
+                        Status: Não Notificado.
+                    {% endif %}
+                </p>
+
+                <p><strong>Prazo:</strong> {{ o.prazo|date:"d/m/Y" }}</p>
+
+                <p><strong>Andamento:</strong>
+                    {% if o.andamento == "resolvido" %}
+                        <span class="label label-success">Resolvido</span>
+                    {% elif o.andamento == "vencido" %}
+                        <span class="label label-danger">Prazo vencido</span>
+                    {% elif o.andamento == "em_andamento" %}
+                        <span class="label label-warning">Em andamento</span>
+                    {% else %}
+                        <span class="label label-default">{{ o.get_andamento_display }}</span>
+                    {% endif %}
+                </p>
             </div>
-      
         </div>
-    {% empty%}
-    
-        Não há registro.
-    
-    {% endfor%}
- </div>
-
-{% endblock content%}
-
+    {% empty %}
+        <p>Não há registro.</p>
+    {% endfor %}
+</div>
+{% endblock content %}

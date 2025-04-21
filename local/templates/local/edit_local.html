@@ -1,0 +1,19 @@
+{% extends "local/base.html" %}
+{% load bootstrap3 %}
+
+{% block header %}
+  <div class="container">
+    <h2>Editar Local</h2>
+  </div>
+{% endblock header %}
+
+{% block content %}
+<div class="container">
+  <form method="post">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+    <a href="{% url 'local:vloc' %}" class="btn btn-secondary">Cancelar</a>
+  </form>
+</div>
+{% endblock content %}

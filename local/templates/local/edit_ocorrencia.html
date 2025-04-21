@@ -1,22 +1,11 @@
-{%  extends "local/base.html"%}
-{% load bootstrap3%}
+{% extends "local/base.html" %}
 
-{% block header%}
-<h1>
-    Local: 
-    <a href="{%url 'vlocs' loc.id%}">{{loc}}</a>
-</h1>
-{% endblock header%}
-
-
-{% block content %} 
-
+{% block content %}
 <div class="container mt-4">
-    <h3>Editar ocorrência</h3>
-
-    <form action="{% url 'edit_ocorrencia' ocorr.id  %}" method="POST" class="form">
+    <h3>Editar Ocorrência</h3>
+    <form method="POST">
         {% csrf_token %}
-        
+
         <!-- Campo Status -->
         <div class="mb-3">
             <label for="id_status" class="form-label">{{ form.status.label }}</label>
@@ -27,7 +16,7 @@
                 </div>
             {% endif %}
         </div>
- 
+
         <!-- Campo Descrição -->
         <div class="mb-3">
             <label for="id_desc" class="form-label">{{ form.desc.label }}</label>
@@ -45,9 +34,30 @@
             <label for="id_noti" class="form-check-label">{{ form.noti.label }}</label>
         </div>
 
-        <!-- Botão Submit -->
-        <button type="submit" class="btn btn-primary">Adicionar</button>
+        <!-- Campo Prazo -->
+        <div class="mb-3">
+            <label for="id_prazo" class="form-label">{{ form.prazo.label }}</label>
+            {{ form.prazo }}
+            {% if form.prazo.errors %}
+                <div class="invalid-feedback">
+                    {{ form.prazo.errors|join:" " }}
+                </div>
+            {% endif %}
+        </div>
+
+        <!-- Campo Andamento (somente leitura) -->
+        <div class="mb-3">
+            <label for="id_andamento" class="form-label">{{ form.andamento.label }}</label>
+            {{ form.andamento }}
+            {% if form.andamento.errors %}
+                <div class="invalid-feedback d-block">
+                    {{ form.andamento.errors|join:" " }}
+                </div>
+            {% endif %}
+        </div>
+
+        <!-- Botão Salvar -->
+        <button type="submit" class="btn btn-primary">Salvar alterações</button>
     </form>
 </div>
-
-{% endblock content%}
+{% endblock %}

@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 
 def logout_view(request):
     logout(request)
-    return HttpResponseRedirect(reverse('index'))
+    return HttpResponseRedirect(reverse('local:index'))
 
 
 
@@ -27,7 +27,7 @@ def login_view(request):
         if user is not None:
             if user.is_approved:
                 login(request, user)
-                return HttpResponseRedirect(reverse('index'))
+                return HttpResponseRedirect(reverse('local:index'))
             else:
                 return render(request, 'users/login.html', {'error': 'Conta não aprovada. Aguarde aprovação do administrador.'})
         else:
@@ -38,7 +38,7 @@ def login_view(request):
 
 def register(request):
     if request.user.is_authenticated:
-        return HttpResponseRedirect(reverse('index'))
+        return HttpResponseRedirect(reverse('local:index'))
 
     if request.method != "POST":
         form = CustomUserCreationForm()
