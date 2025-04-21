@@ -34,7 +34,7 @@ SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 SECURE_HSTS_PRELOAD = True
 
 
-ALLOWED_HOSTS = ['posture.app.br']
+ALLOWED_HOSTS = ['localhost','posture.app.br', '127.0.0.1']
 
 
 # Application definition
@@ -89,12 +89,12 @@ WSGI_APPLICATION = 'posturas.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'postura',
-        'USER': 'root',
-        'PASSWORD': '123456',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'meu_banco',
+        'USER': 'admin',
+        'PASSWORD': '123',
         'HOST': 'localhost',
-        'PORT': '3306'
+        'PORT': '5432'
     }
 
 }
